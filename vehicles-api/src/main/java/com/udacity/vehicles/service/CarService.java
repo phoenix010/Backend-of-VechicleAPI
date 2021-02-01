@@ -77,7 +77,6 @@ public class CarService {
          * Note: The Location class file also uses @transient for the address,
          * meaning the Maps service needs to be called each time for the address.
          */
-        car.setCondition(car.getCondition());
         car.setLocation(mapsClient.getAddress(car.getLocation()));
 
         return car;
@@ -93,6 +92,7 @@ public class CarService {
             return repository.findById(car.getId())
                     .map(carToBeUpdated -> {
                         carToBeUpdated.setDetails(car.getDetails());
+                        carToBeUpdated.setCondition(car.getCondition());
                         carToBeUpdated.setLocation(car.getLocation());
                         return repository.save(carToBeUpdated);
                     }).orElseThrow(CarNotFoundException::new);
